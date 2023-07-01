@@ -18,7 +18,7 @@ const HomeComponents = () => {
 </button>
 </a>
 
-<a href='' target='__blank'>
+<a href='http://ergast.com/mrd/' target='__blank'>
 <button className='flex px-5 py-2 bg-red-600  items-center gap-4  text-white font-semilbold hover:text-black hover:bg-transparent hover:border-[1px] hover:border-grey'>
     <div>F1 Website</div>
     <div>    <BsGlobe className='hover:text-black' />

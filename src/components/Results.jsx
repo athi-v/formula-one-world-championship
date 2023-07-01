@@ -44,9 +44,9 @@ const Results = () => {
   }, [currentYear]);
 
   return (
-    <div  className='section'>
+    <div id='standings' className='section'>
      <div className='container h-auto mx-auto max-w-[90%] flex flex-col justify-start items-start'>
-     <h1 className="text-3xl font-semibold py-5" id='standings'> {currentYear.value} Standings
+     <h1 className="text-3xl font-semibold py-5" > {currentYear.value} Standings
 </h1> 
      <div className='flex flex-col gap-5 w-full'>
 <div>

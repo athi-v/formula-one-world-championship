@@ -29,7 +29,7 @@ const HomeComponents = () => {
      </div>
      </div>
    
-     <div className='hidden lg:block items-center'>
+     <div className='items-center'>
  <video loop autoPlay muted className='h-full' >
  <source src={Video} type="video/mp4" />
  </video>

@@ -65,11 +65,11 @@ const Results = () => {
               <table className='w-full shadow-lg rounded-lg table-auto'>
                 <thead >
                   <tr>
-                    <th className='text-left py-7 px-1 lg:px-7'>Position</th>
-                    <th className='text-left py-7 px-1 lg:px-7'>Driver</th>
-                    <th className='text-left py-7 px-1 lg:px-7'>Car</th>
+                    <th className='text-left py-7 px-1 lg:px-7'>POS</th>
+                    <th className='text-left py-7 px-1 lg:px-7'>DRIVER</th>
+                    <th className='text-left py-7 px-1 lg:px-7'>CAR</th>
 
-                    <th className='text-left py-7 px-1 lg:px-7'>Points</th>
+                    <th className='text-left py-7 px-1 lg:px-7'>POINTS</th>
                   </tr>
                 </thead>
                 <tbody className='divide-y'>

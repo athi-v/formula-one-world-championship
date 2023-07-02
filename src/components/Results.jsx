@@ -6,15 +6,24 @@ const Results = () => {
 
   const [currentYear, setCurrentYear] = useState({ value: 2023, label: '2023' })
   const [season, setSeason] = useState([])
+  const [champs, setChamps] = useState(null)
   const [loader, setLoader] = useState(false)
 
   const getChampions = async (year) => {
     setLoader(true);
     try {
       const response = await fetch(`https://ergast.com/api/f1/${year}/driverStandings.json`); 
+      const responses = await fetch(`https://ergast.com/api/f1/${year}/results/1.json`); 
+
       const data = await response.json();
-      setSeason(data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || []);
-      console.log(data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || []);
+      const datas = await responses.json();
+
+      setChamps(data.MRData.StandingsTable.StandingsLists[0]);
+      console.log(data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings[0] || []);
+
+      setSeason(datas.MRData.RaceTable.Races || []);
+      console.log(datas.MRData.RaceTable.Races || []);
+
       setLoader(false);
     }
     catch (err) {
@@ -43,7 +52,6 @@ const Results = () => {
    getChampions(currentYear.value);
   }, [currentYear]);
 
-  console.log(curYear.getFullYear())
 
 
   return (
@@ -81,11 +89,18 @@ const Results = () => {
  {loader ? (<Loading/> ) :
   
  (
+
+  <div>
+  <div className={champs?.position == 1 && currentYear.value < curYear.getFullYear() ? 'bg-green-600' : champs?.position == 1 && currentYear.value >= curYear.getFullYear() ? 'bg-orange-600' :  'bg-transparent'  }>
+  {champs ? <p>{champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} <br/> with {champs.DriverStandings[0].points} points</p> : <p>Nit</p>}
+ </div>
+
+ <div>
               <table className='w-full shadow-lg rounded-lg table-auto'>
                 <thead >
 
                   <tr>
-                    <th className='text-left py-7 px-1 lg:px-7'>POS</th>
+                    <th className='text-left py-7 px-1 lg:px-7'>ROUND</th>
                     <th className='text-left py-7 px-1 lg:px-7'>DRIVER</th>
                     <th className='text-left py-7 px-1 lg:px-7'>CAR</th>
 
@@ -93,22 +108,26 @@ const Results = () => {
                   </tr>
                 </thead>
                 <tbody className='divide-y'>
-                  {season.map((item, index) => (
-                    
-                    <tr key={index} className={item?.position == 1 && currentYear.value < curYear.getFullYear() ? 'bg-green-600' : item?.position == 1 && currentYear.value >= curYear.getFullYear() ? 'bg-orange-600' :  'bg-transparent'  }>
-                  
-                
+                  { 
+                    season.map((item, index) => (
+                    <tr key={index} >
+           
                       <td className='py-7 px-1 lg:px-7'>
-                      {item?.position}</td>
+                      {item.round}</td>
 
-                      <td className='py-7 px-1 lg:px-7'><a href={item?.Driver?.url}>{item?.Driver?.givenName} {item?.Driver?.familyName}</a></td>
-                      <td className='py-7 px-1 lg:px-7'>{item?.Constructors[0].name}</td>
-                      <td className='py-7 px-1 lg:px-7'>{item?.points}</td>
+                      <td className='py-7 px-1 lg:px-7'><a href={item?.Results[0].Driver?.url}>{item?.Results[0].Driver?.givenName} {item?.Results[0].Driver?.familyName}</a></td>
+                      <td className='py-7 px-1 lg:px-7'>{item?.Results[0].Constructor?.name}</td>
+                      <td className='py-7 px-1 lg:px-7'>{item?.Results[0].points}</td> 
                     </tr>
-                  ))}
+                    ) 
+                  ) }
                 </tbody>
               </table>
-            )}
+              </div>
+            </div>
+            )
+           }
+            
  </div>
 
      </div>

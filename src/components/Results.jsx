@@ -91,8 +91,10 @@ const Results = () => {
  (
 
   <div>
-  <div className={champs?.position == 1 && currentYear.value < curYear.getFullYear() ? 'bg-green-600' : champs?.position == 1 && currentYear.value >= curYear.getFullYear() ? 'bg-orange-600' :  'bg-transparent'  }>
-  {champs ? <p>{champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} <br/> with {champs.DriverStandings[0].points} points</p> : <p>Nit</p>}
+  <div className='flex flex-cols h-[100px] items-center justify-center border-2 bg-slate-200 py-5'>
+  {champs && currentYear.value < curYear.getFullYear() -1 ? <p className='flex gap-3 font-semibold'>  {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} won the {currentYear.value} Formula 1 World Championships by {champs.DriverStandings[0].points} points <div className='bg-green-600 h-[20px] w-[20px] rounded-[100%]'></div></p> : 
+  champs && currentYear.value >= curYear.getFullYear() ? <p className='flex gap-3 font-semibold'> {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} is leading by {champs.DriverStandings[0].points} points <div className='bg-orange-600 h-[20px] w-[20px] rounded-[100%]'></div></p> : 
+  <p className='flex gap-3 font-semibold'>Something can't get results <div className='bg-red-600 h-[20px] w-[20px] rounded-[100%]'></div></p>}
  </div>
 
  <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Loading from './common/Loading'
 import SelectOption from './helpers/SelectOption'
 
@@ -22,7 +22,6 @@ const Results = () => {
       console.log(data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings[0] || []);
 
       setSeason(datas.MRData.RaceTable.Races || []);
-      console.log(datas.MRData.RaceTable.Races || []);
 
       setLoader(false);
     }
@@ -91,11 +90,29 @@ const Results = () => {
  (
 
   <div>
-  <div className='flex flex-cols h-[100px] items-center justify-center border-2 bg-slate-200 py-5'>
-  {champs && currentYear.value < curYear.getFullYear() -1 ? <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>  {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} won the {currentYear.value} Formula 1 World Championships by {champs.DriverStandings[0].points} points <div className='bg-green-600 h-[20px] w-[20px] rounded-[100%]'></div></p> : 
-  champs && currentYear.value >= curYear.getFullYear() ? <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'> {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} is leading by {champs.DriverStandings[0].points} points <div className='bg-orange-600 h-[20px] w-[20px] rounded-[100%]'></div></p> : 
-  <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>Something can't get results <div className='bg-red-600 h-[20px] w-[20px] rounded-[100%]'></div></p>}
- </div>
+ <div className='flex flex-cols h-[100px] items-center justify-center border-2 bg-slate-200 py-5'>
+  {champs && currentYear.value < curYear.getFullYear() ? (
+    <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>
+      {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} won the {currentYear.value} Formula 1 World Championships by {champs.DriverStandings[0].points} points 
+      <div className='bg-green-600 h-[20px] w-[20px] rounded-[100%]'></div>
+    </p>
+  ) : champs && currentYear.value === curYear.getFullYear() ? (
+    <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>
+      {champs.DriverStandings[0].Driver.givenName} {champs.DriverStandings[0].Driver.familyName} is leading by {champs.DriverStandings[0].points} points 
+      <div className='bg-orange-600 h-[20px] w-[20px] rounded-[100%]'></div>
+    </p>
+  ) : champs ? (
+    <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>
+      Results May Change
+      <div className='bg-orange-600 h-[20px] w-[20px] rounded-[100%]'></div>
+    </p>
+  ) : (
+    <p className='flex flex-col-reverse items-center text-center lg gap-3 font-semibold'>
+      Something went wrong; unable to retrieve results.
+      <div className='bg-red-600 h-[20px] w-[20px] rounded-[100%]'></div>
+    </p>
+  )}
+</div>
 
  <div>
               <table className='w-full shadow-lg rounded-lg table-auto'>
